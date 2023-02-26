@@ -24,6 +24,9 @@ void Graphics::loadBackgroundImg()
     _windowName = "Concurrency Traffic Simulation";
     cv::namedWindow(_windowName, cv::WINDOW_NORMAL);
 
+    // Resize window for debug https://knowledge.udacity.com/questions/365439
+    cv::resizeWindow(_windowName, 1000,1000);
+
     // load image and create copy to be used for semi-transparent overlay
     cv::Mat background = cv::imread(_bgFilename);
     _images.push_back(background);         // first element is the original background
