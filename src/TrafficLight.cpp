@@ -16,7 +16,7 @@ T MessageQueue<T>::receive()
     _conditionMQ.wait(uLock, [this] { return !_queue.empty(); });
 
     auto aux = std::move(_queue.back());
-    _queue.pop_back();
+    _queue.clear(); // https://knowledge.udacity.com/questions/98313
     return aux;
 }
 
@@ -27,7 +27,7 @@ void MessageQueue<T>::send(T &&msg)
     // as well as _condition.notify_one() to add a new message to the queue and afterwards send a notification.
 
     std::lock_guard<std::mutex> Lock(_mutexMQ);
-    _queue.emplace_back(msg); // FIXME: push with move ?
+    _queue.emplace_back(std::move(msg));
     _conditionMQ.notify_one();
 
 }
@@ -75,8 +75,6 @@ void TrafficLight::cycleThroughPhases()
     // and toggles the current phase of the traffic light between red and green and sends an update method 
     // to the message queue using move semantics. The cycle duration should be a random value between 4 and 6 seconds. 
     // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles.
-
-    _currentPhase = red;
 
     auto t_start = std::chrono::high_resolution_clock::now();
     std::random_device rd;
