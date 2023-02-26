@@ -4,7 +4,7 @@
 #include <chrono>
 /* Implementation of class "MessageQueue" */
 
-/* 
+
 template <typename T>
 T MessageQueue<T>::receive()
 {
@@ -19,11 +19,11 @@ void MessageQueue<T>::send(T &&msg)
     // FP.4a : The method send should use the mechanisms std::lock_guard<std::mutex> 
     // as well as _condition.notify_one() to add a new message to the queue and afterwards send a notification.
 }
-*/
+
 
 /* Implementation of class "TrafficLight" */
 
-/* 
+
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
@@ -35,7 +35,7 @@ void TrafficLight::waitForGreen()
     // runs and repeatedly calls the receive function on the message queue. 
     // Once it receives TrafficLightPhase::green, the method returns.
 }
-*/
+
 TrafficLightPhase TrafficLight::getCurrentPhase()
 {
     return _currentPhase;
@@ -83,8 +83,7 @@ void TrafficLight::cycleThroughPhases()
             t_start = std::chrono::high_resolution_clock::now();
 
             // https://knowledge.udacity.com/questions/459283
-            //_message.send(std::move(_currentPhase)); // FIXME: Uncomment when class MessageQueue is implemented
-
+            _message.send(std::move(_currentPhase));
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
