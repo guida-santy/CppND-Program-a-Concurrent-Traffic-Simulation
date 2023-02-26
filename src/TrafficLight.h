@@ -24,8 +24,8 @@ public:
 
 private:
     std::deque<T> _queue;
-    std::mutex _mutex;
-    std::condition_variable _cond;
+    std::mutex _mutexMQ;
+    std::condition_variable _conditionMQ;
 
 };
 
